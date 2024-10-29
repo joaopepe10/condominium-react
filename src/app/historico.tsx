@@ -1,12 +1,29 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import * as DocumentPicker from 'expo-document-picker';
+
+type Status = 'emAberto' | 'pago' | 'atrasado';
+type MesesStatus = {
+    Janeiro: Status;
+    Fevereiro: Status;
+    Marco: Status;
+    Abril: Status;
+    Maio: Status;
+    Junho: Status;
+    Julho: Status;
+    Agosto: Status;
+    Setembro: Status;
+    Outubro: Status;
+    Novembro: Status;
+    Dezembro: Status;
+  };
 
 export default function Historico() {
   // Estado para controlar o status de pagamento de cada mês
-  const [mesesStatus, setMesesStatus] = useState({
+  const [mesesStatus, setMesesStatus] = useState<MesesStatus>({
     Janeiro: 'emAberto',
     Fevereiro: 'emAberto',
-    Março: 'emAberto',
+    Marco: 'emAberto',
     Abril: 'emAberto',
     Maio: 'emAberto',
     Junho: 'emAberto',
@@ -19,7 +36,7 @@ export default function Historico() {
   });
 
   // Função para simular o envio de comprovante e atualizar o status do mês
-  const enviarComprovante = (mes) => {
+  const enviarComprovante = (mes: keyof MesesStatus) => {
     // Enviar comprovante e atualizar o status do mês
     setMesesStatus((prevStatus) => ({
       ...prevStatus,
