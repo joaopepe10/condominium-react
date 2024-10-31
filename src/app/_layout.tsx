@@ -17,6 +17,11 @@ export default function Layout() {
             options={{
                 title: "Usuario"
             }}/>
+
+        <Stack.Screen name="cadastro" 
+            options={{
+                title: "Cadastre-se"
+            }}/>
         </Stack>
     )
 

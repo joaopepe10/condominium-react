@@ -8,48 +8,52 @@ export default function TelaDeLogin() {
 
   return (
     <View style={styles.container}>
-      {/* Logo ou imagem no topo */}
-      <Image 
-        source={require('../app/images/logoLogin.png')} 
-        style={styles.logo} 
-        resizeMode="contain"
-       />
+        <Image 
+          source={require('../app/images/logoLogin.png')} 
+          style={styles.logo} 
+          resizeMode="contain"
+        />
 
-      {/* Campo de usuário */}
-      <Text style={styles.label}>USUÁRIO</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="INSIRA SEU REGISTRO DE USUÁRIO" 
-        value={username}
-        onChangeText={setUsername}
-      />
+        <Text style={styles.label}>USUÁRIO</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="INSIRA SEU REGISTRO DE USUÁRIO" 
+          value={username}
+          onChangeText={setUsername}
+        />
 
-      {/* Campo de senha */}
-      <Text style={styles.label}>SENHA</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="INSIRA SUA SENHA DE USUÁRIO"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
+        <Text style={styles.label}>SENHA</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="INSIRA SUA SENHA DE USUÁRIO"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
 
-      {/* Esqueci a senha */}
-      <TouchableOpacity onPress={() => alert('Esqueci a senha')}>
-        <Text style={styles.forgotPassword}>Esqueci a senha</Text>
-      </TouchableOpacity>
+        <TouchableOpacity onPress={() => alert('Esqueci a senha')}>
+          <Text style={styles.forgotPassword}>Esqueci a senha</Text>
+        </TouchableOpacity>
 
-      {/* Botão de login */}
-      <View style={styles.buttonContainer}>
-    
-      <View style={styles.btx}>
-        <Link href={"/usuario"} asChild>
-            <TouchableOpacity>
-                <Text>Login</Text>
-            </TouchableOpacity>
-        </Link>
-      </View>
-    
+        <View style={styles.buttonContainer}>
+
+        <View style={styles.btnLoginCadastro}>
+          <View style={styles.btx}>
+              <Link href={"/usuario"} asChild>
+                  <TouchableOpacity>
+                      <Text>Login</Text>
+                  </TouchableOpacity>
+              </Link>
+            </View>
+
+            <View style={styles.btx}>
+              <Link href={"/cadastro"} asChild>
+                  <TouchableOpacity>
+                      <Text>Cadastrar</Text>
+                  </TouchableOpacity>
+              </Link>
+            </View>
+        </View>
 
       </View>
     </View>
@@ -68,7 +72,11 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     marginBottom: 40,
-
+  },
+  btnLoginCadastro:{
+    flexDirection: "column",
+    gap: 5,
+    fontWeight: 'bold',    
   },
   label: {
     padding:5,
@@ -88,20 +96,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#e0e0e0',
   },
   forgotPassword: {
-    width:100,
-    alignSelf: 'flex-end',
     marginRight: '10%',
     color: '#007FFF',
     marginBottom: 20,
+    fontWeight: 'bold',
+
   },
   buttonContainer: {
     width: '80%',
     borderRadius: 5,
   },
   btx: {
+    fontSize: 16,
     alignItems: 'center',
     backgroundColor: '#007FFF',
     padding: 10,
-    color: '007FFF'
+    color: '007FFF',
+    fontWeight: '200',
   }
 });
