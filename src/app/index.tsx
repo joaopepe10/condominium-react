@@ -1,10 +1,40 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, Button, TouchableOpacity, Image, Pressable } from 'react-native';
-import { Link } from 'expo-router'
+import { StyleSheet, View, Text, TextInput, Button, TouchableOpacity, Image, Alert } from 'react-native';
+import { Link, router } from 'expo-router'
 
 export default function TelaDeLogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const login = async () => {
+
+    if(!username || !password){
+      Alert.alert("Erro", "Por favor, preencha todos os campos.");
+      return;
+    }
+    const loginData = {
+      username,
+      password
+    }
+
+    try {
+      const response = await fetch('http://10.0.2.2:8080/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginData)
+      });
+
+      if(!response.ok){
+        Alert.alert("Erro", "Username ou senha incorretos!")
+      }else {
+        router.push('/usuario')
+      }
+    } catch(error) {
+      Alert.alert("Erro", "Houve algum erro inesperado, tente novamente mais tarde.")
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -39,11 +69,9 @@ export default function TelaDeLogin() {
 
         <View style={styles.btnLoginCadastro}>
           <View style={styles.btx}>
-              <Link href={"/usuario"} asChild>
-                  <TouchableOpacity>
-                      <Text>Login</Text>
-                  </TouchableOpacity>
-              </Link>
+            <TouchableOpacity onPress={login}>
+              <Text>Login</Text>
+            </TouchableOpacity>
             </View>
 
             <View style={styles.btx}>

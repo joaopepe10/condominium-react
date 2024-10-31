@@ -1,6 +1,6 @@
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, ScrollView, Alert } from 'react-native';
-import { Link } from 'expo-router';
 
 export default function TelaDeCriacaoDeUsuario() {
   const [name, setName] = useState('');
@@ -11,27 +11,64 @@ export default function TelaDeCriacaoDeUsuario() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleCreateAccount = () => {
+  const handleCreateAccount = async () => {
+    if (!name || !email || !phoneNumber || !apartmentNumber || !username || !password || !confirmPassword) {
+      Alert.alert("Erro", "Por favor, preencha todos os campos.");
+      return;
+    }
+  
     if (password !== confirmPassword) {
       Alert.alert("Erro", "As senhas não coincidem");
       return;
     }
-
-    // Continua o fluxo para criar a conta
-    Alert.alert("Sucesso", "Conta criada com sucesso!");
+  
+    const userData = {
+      name,
+      email,
+      phoneNumber,
+      apartmentNumber,
+      username,
+      password,
+    };
+  
+    try {
+      const response = await fetch('http://10.0.2.2:8080/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        
+        // Tratar erros específicos, como duplicidade de email
+        if (errorData.message.includes("Unique index or primary key violation")) {
+          Alert.alert("Erro", "Email ou nome de usuário já existe. Tente outro.");
+        } else {
+          Alert.alert("Erro", errorData.message || "Ocorreu um erro ao criar a conta.");
+        }
+      } else {
+        Alert.alert("Sucesso", "Conta criada com sucesso!");
+      }
+    } catch (error) {
+      // Tratar erros de conexão ou outros
+      Alert.alert("Erro", "Erro de conexão com o servidor. Tente novamente mais tarde.");
+    }
   };
+  
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
-        {/* Logo ou imagem no topo */}
+    
         <Image 
           source={require('../app/images/logoLogin.png')} 
           style={styles.logo} 
           resizeMode="contain"
         />
 
-        {/* Campo de nome */}
         <Text style={styles.label}>NOME</Text>
         <TextInput
           style={styles.input}
@@ -40,7 +77,6 @@ export default function TelaDeCriacaoDeUsuario() {
           onChangeText={setName}
         />
 
-        {/* Campo de email */}
         <Text style={styles.label}>EMAIL</Text>
         <TextInput
           style={styles.input}
@@ -50,7 +86,6 @@ export default function TelaDeCriacaoDeUsuario() {
           keyboardType="email-address"
         />
 
-        {/* Campo de telefone */}
         <Text style={styles.label}>TELEFONE</Text>
         <TextInput
           style={styles.input}
@@ -60,7 +95,6 @@ export default function TelaDeCriacaoDeUsuario() {
           keyboardType="phone-pad"
         />
 
-        {/* Campo de número do apartamento */}
         <Text style={styles.label}>NÚMERO DO APARTAMENTO</Text>
         <TextInput
           style={styles.input}
@@ -70,7 +104,6 @@ export default function TelaDeCriacaoDeUsuario() {
           keyboardType="numeric"
         />
 
-        {/* Campo de usuário */}
         <Text style={styles.label}>USUÁRIO</Text>
         <TextInput
           style={styles.input}
@@ -79,7 +112,6 @@ export default function TelaDeCriacaoDeUsuario() {
           onChangeText={setUsername}
         />
 
-        {/* Campo de senha */}
         <Text style={styles.label}>SENHA</Text>
         <TextInput
           style={styles.input}
@@ -89,7 +121,6 @@ export default function TelaDeCriacaoDeUsuario() {
           secureTextEntry
         />
 
-        {/* Campo de confirmação de senha */}
         <Text style={styles.label}>CONFIRMAR SENHA</Text>
         <TextInput
           style={styles.input}
@@ -99,14 +130,11 @@ export default function TelaDeCriacaoDeUsuario() {
           secureTextEntry
         />
 
-        {/* Botão de criação de conta */}
         <View style={styles.buttonContainer}>
           <View style={styles.btx}>
-            <Link href={'/index'}>
-              <TouchableOpacity onPress={handleCreateAccount}>
-                <Text>Criar Conta</Text>
-              </TouchableOpacity>            
-            </Link>
+            <TouchableOpacity onPress={handleCreateAccount}>
+              <Text>Criar Conta</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
