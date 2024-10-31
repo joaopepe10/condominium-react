@@ -33,7 +33,7 @@ export default function TelaInicial() {
                     <Text style={styles.buttonText}>HISTORICO</Text>
                 </TouchableOpacity>
             </Link>
-      </View>
+        </View>
       </View>
     </View>
   );

@@ -7,22 +7,33 @@ export default function Layout() {
             options={{
                 title: "Login",
                 headerShown: false
-            }}/>
-        <Stack.Screen name="usuario" 
-            options={{
-                title: "Usuario"
-            }}/>
+            }}
+            />
+            <Stack.Screen name="usuario" 
+                options={{
+                    title: "Usuario"
+                }}
+            />
 
-        <Stack.Screen name="historico" 
-            options={{
-                title: "Usuario"
-            }}/>
+            <Stack.Screen name="historico" 
+                options={{
+                    title: "Usuario"
+                }}
+            />
 
-        <Stack.Screen name="cadastro" 
-            options={{
-                title: "Cadastre-se"
-            }}/>
+            <Stack.Screen name="cadastro" 
+                options={{
+                    title: "Cadastre-se"
+                }}
+            />
+
+            <Stack.Screen name="comprovante" 
+                options={{
+                    title: "Enviar comprovante"
+                }}
+            />
         </Stack>
+
     )
 
 }

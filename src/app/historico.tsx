@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
+import { Link } from 'expo-router';
 
 type Status = 'emAberto' | 'pago' | 'atrasado';
 type MesesStatus = {
@@ -47,7 +48,7 @@ export default function Historico() {
   return (
     <View style={styles.container}>
       <Text style={styles.headerContainer}>HISTÓRICO DE PAGAMENTOS</Text>
-      <ScrollView>
+      <ScrollView style={styles.elementos}>
         <View style={styles.mesesContainer}>
           {Object.keys(mesesStatus).map((mes) => (
             <TouchableOpacity
@@ -60,6 +61,16 @@ export default function Historico() {
             </TouchableOpacity>
           ))}
         </View>
+
+        <View style={styles.buttonContainer}>
+          <View style={styles.button}>
+              <Link href={"/enviar_comprovante"} asChild>
+                  <TouchableOpacity>
+                      <Text style={styles.buttonText}>Enviar Comprovante</Text>
+                  </TouchableOpacity>
+              </Link>
+          </View>
+      </View>
       </ScrollView>
     </View>
   );
@@ -69,8 +80,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#B5D2FF',
-    alignItems: 'center',
-    justifyContent: 'space-between', 
+  },
+  elementos: {
+    flexDirection: 'column'
   },
   headerContainer: {
     width: '100%',
@@ -101,5 +113,22 @@ const styles = StyleSheet.create({
   },
   atrasado: {
     backgroundColor: '#F1A7A7',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    marginBottom: 20,
+  },
+  button: {
+    backgroundColor: '#0093d1',
+    padding: 15,
+    borderRadius: 5,
+    width: '45%',
+    alignItems: 'center',
+  },  
+  buttonText: {
+    color: '#FFFFFF',
+    fontWeight: 'bold',
   },
 });
