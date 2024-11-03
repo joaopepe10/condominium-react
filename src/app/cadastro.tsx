@@ -32,7 +32,7 @@ export default function TelaDeCriacaoDeUsuario() {
     };
   
     try {
-      const response = await fetch('http://10.0.2.2:8080/users', {
+      const response = await fetch(`${AppConstantes.URL_SERVIDOR_BACK_END}/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

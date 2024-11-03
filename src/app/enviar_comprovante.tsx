@@ -37,7 +37,7 @@ export default function UploadProof() {
     });
 
     try {
-      const response = await fetch(`http://10.0.2.2:8080/apartments/send-proof/12`, {
+      const response = await fetch(`${AppConstantes.URL_SERVIDOR_BACK_END}/apartments/send-proof/12`, {
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',

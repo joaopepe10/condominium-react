@@ -18,7 +18,7 @@ export default function TelaDeLogin() {
     }
 
     try {
-      const response = await fetch('http://10.0.2.2:8080/login', {
+      const response = await fetch(`${AppConstantes.URL_SERVIDOR_BACK_END}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
