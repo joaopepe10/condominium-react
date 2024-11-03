@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, useLocalSearchParams } from 'expo-router';
 
 export default function TelaInicial() {
-
+  
   const [userData] = useState({
     imageUserUrl: 'https://via.placeholder.com/200',
     name: 'Luis Feliphe Baeta Elias Soares', 
@@ -11,6 +11,7 @@ export default function TelaInicial() {
     fone:'Celular: (31) 0000-000',
     numAp:'Apartamento: 171',
   });
+  const { id, name, email, phoneNumber, apartmentNumber } = useLocalSearchParams();
 
   return (
     <View style={styles.container}>
@@ -20,10 +21,10 @@ export default function TelaInicial() {
 
       <View style={styles.userContainer}>
         <Image source={require('../app/images/ImageUser.png')} style={styles.imageUser} />
-        <Text style={styles.username}>{userData.name}</Text>
-        <Text style={styles.username}>{userData.email}</Text>
-        <Text style={styles.username}>{userData.fone}</Text>
-        <Text style={styles.username}>{userData.numAp}</Text>
+        <Text style={styles.username}>{name}</Text>
+        <Text style={styles.username}>{email}</Text>
+        <Text style={styles.username}>{phoneNumber}</Text>
+        <Text style={styles.username}>{apartmentNumber}</Text>
       </View>
 
       <View style={styles.buttonContainer}>

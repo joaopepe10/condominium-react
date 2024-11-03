@@ -3,6 +3,7 @@ import { View, Text, Button, Alert, StyleSheet } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 
 export default function UploadProof() {
+  const [uri, setUri] = useState('http://3.232.96.217:8080');
   const [file, setFile] = useState(null);
 
   // Função para selecionar o arquivo
@@ -37,7 +38,7 @@ export default function UploadProof() {
     });
 
     try {
-      const response = await fetch(`${AppConstantes.URL_SERVIDOR_BACK_END}/apartments/send-proof/12`, {
+      const response = await fetch(`${uri}/apartments/send-proof/12`, {
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',

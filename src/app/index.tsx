@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, Button, TouchableOpacity, Image, Alert } from 'react-native';
-import { Link, router } from 'expo-router'
+import { Link, router } from 'expo-router';
 
 export default function TelaDeLogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [uri, setUri] = useState('http://10.0.2.2:8080');
 
   const login = async () => {
 
@@ -18,7 +19,8 @@ export default function TelaDeLogin() {
     }
 
     try {
-      const response = await fetch(`${AppConstantes.URL_SERVIDOR_BACK_END}/login`, {
+      console.log(uri);
+      const response = await fetch(`${uri}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -29,9 +31,20 @@ export default function TelaDeLogin() {
       if(!response.ok){
         Alert.alert("Erro", "Username ou senha incorretos!")
       }else {
-        router.push('/usuario')
+        const data = await response.json();
+        router.push({
+          pathname: '/usuario',
+          params: {
+            id: data.id,
+            name: data.name,
+            email: data.email,
+            phoneNumber: data.phoneNumber,
+            apartmentNumber: data.apartmentNumber,
+          }
+        });
       }
     } catch(error) {
+      console.log(error);
       Alert.alert("Erro", "Houve algum erro inesperado, tente novamente mais tarde.")
     }
   };
