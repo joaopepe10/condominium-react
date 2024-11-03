@@ -3,15 +3,10 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Link, useLocalSearchParams } from 'expo-router';
 
 export default function TelaInicial() {
-  
-  const [userData] = useState({
-    imageUserUrl: 'https://via.placeholder.com/200',
-    name: 'Luis Feliphe Baeta Elias Soares', 
-    email: 'E-mail: 202208681646@alunos.estacio.br',
-    fone:'Celular: (31) 0000-000',
-    numAp:'Apartamento: 171',
-  });
   const { id, name, email, phoneNumber, apartmentNumber } = useLocalSearchParams();
+
+  const formattedName = name ? name.replace(/\b\w/g, char => char.toUpperCase()) : '';
+  const formattedPhoneNumber = phoneNumber ? phoneNumber.replace(/^(\d{2})(\d{4,5})(\d{4})$/, '($1) $2-$3') : '';
 
   return (
     <View style={styles.container}>
@@ -20,20 +15,21 @@ export default function TelaInicial() {
       </View>
 
       <View style={styles.userContainer}>
-        <Image source={require('../app/images/ImageUser.png')} style={styles.imageUser} />
-        <Text style={styles.username}>{name}</Text>
-        <Text style={styles.username}>{email}</Text>
-        <Text style={styles.username}>{phoneNumber}</Text>
-        <Text style={styles.username}>{apartmentNumber}</Text>
+      <Image source={require('../app/images/ImageUser.png')} style={styles.imageUser} />
+
+        <Text style={styles.username}>Nome: {formattedName}</Text>
+        <Text style={styles.username}>E-mail: {email}</Text>
+        <Text style={styles.username}>Celular: {formattedPhoneNumber}</Text>
+        <Text style={styles.username}>Apartamento: {apartmentNumber}</Text>
       </View>
 
       <View style={styles.buttonContainer}>
         <View style={styles.button}>
-            <Link href={"/historico"} asChild>
-                <TouchableOpacity>
-                    <Text style={styles.buttonText}>HISTORICO</Text>
-                </TouchableOpacity>
-            </Link>
+          <Link href="/historico" asChild>
+            <TouchableOpacity>
+              <Text style={styles.buttonText}>HISTÓRICO</Text>
+            </TouchableOpacity>
+          </Link>
         </View>
       </View>
     </View>

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, ScrollView, Alert } from 'react-native';
 
 export default function TelaDeCriacaoDeUsuario() {
-  const [uri, setUri] = useState('http://3.232.96.217:8080');
+  const [uri, setUri] = useState('http://10.0.2.2:8080');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
