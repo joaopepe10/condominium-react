@@ -1,3 +1,3 @@
 class AppConstantes {
-    static readonly URL_SERVIDOR_BACK_END: string = "http://ec2-44-200-216-251.compute-1.amazonaws.com:8080";
+    static readonly URL_SERVIDOR_BACK_END: string = "http://3.232.96.217:8080";
 }
