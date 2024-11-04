@@ -27,7 +27,7 @@ export default function Layout() {
                 }}
             />
 
-            <Stack.Screen name="comprovante" 
+            <Stack.Screen name="enviar_comprovante" 
                 options={{
                     title: "Enviar comprovante"
                 }}
